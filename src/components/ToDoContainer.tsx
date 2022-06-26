@@ -5,17 +5,22 @@ import InputTodo from "./InputTodo";
 import { v4 as uuidv4 } from "uuid";
 
 
-export interface IToDos {
+export interface IToDo {
+  todo:{
   id:string,
   title:string,
   complete:boolean
-}
+}}
 
 export interface IState{
-  todo: Array<IToDos>
+  toDos: Array<IToDo>
 }
 
-class TodoContainer extends React.Component<Array<IState> {
+export interface IAddProp{
+  addTodoItem: () => void
+}
+
+class TodoContainer extends React.Component <IState> {
   state = {
     toDos: [
       {
@@ -88,7 +93,7 @@ class TodoContainer extends React.Component<Array<IState> {
       <div className="container">
         <div className="inner">
           <Header />
-          <InputTodo addTodoProps={this.addTodoItem} />
+          <InputTodo addTodoItem={this.addTodoItem} />
           <TodosList
             toDos={this.state.toDos}
             handleChangeProps={this.handleChange}

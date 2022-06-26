@@ -1,6 +1,10 @@
 import React, { Component, ChangeEvent } from "react"
 
-class InputTodo extends Component {
+interface IState{
+  title:string,
+}
+
+class InputTodo extends Component<IState> {
   state = {
     title: "",
   }
@@ -9,7 +13,8 @@ class InputTodo extends Component {
       [e.target.name]: e.target.value,
     })
   }
-  handleSubmit = (e:ChangeEvent<HTMLInputElement>) => {
+
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (this.state.title.trim()) {
       this.props.addTodoProps(this.state.title)

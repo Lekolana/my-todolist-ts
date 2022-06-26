@@ -1,15 +1,15 @@
-import React, { Component } from "react"
+import React, { Component, ChangeEvent } from "react"
 
 class InputTodo extends Component {
   state = {
     title: "",
   }
-  onChange = e => {
+  onChange = (e:ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     })
   }
-  handleSubmit = e => {
+  handleSubmit = (e:ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     if (this.state.title.trim()) {
       this.props.addTodoProps(this.state.title)

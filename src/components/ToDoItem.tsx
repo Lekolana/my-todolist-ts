@@ -1,7 +1,18 @@
 import React from "react"
 import styles from "./TodoItem.module.css"
 
-class ToDoItem extends React.Component {
+
+interface IToDo{
+  todo:{
+    id:string,
+    title:string,
+    complete:boolean
+  }
+}
+interface IStateToDoItem{
+  editing:boolean
+}
+class ToDoItem extends React.Component<IStateToDoItem> {
   state = {
     editing: false,
   };
@@ -12,8 +23,8 @@ class ToDoItem extends React.Component {
   })
 };
 
-    handleUpdatedDone = event => {
-      if (event.key === "Enter") {
+    handleUpdatedDone = (event:KeyboardEvent) => {
+      if (event.key === "Enter"){
         this.setState({ editing: false })
       }
     }

@@ -1,11 +1,11 @@
 import React from "react"
-import TodoItem from "./TodoItem";
+import TodoItem from "./ToDoItem";
 
 class ToDoList extends React.Component {
   render() {
     return (
       <ul>
-        {this.props.todos.map(todo => (
+        {this.props.toDos.map(todo => (
           <TodoItem
           key={todo.id}
           todo={todo}

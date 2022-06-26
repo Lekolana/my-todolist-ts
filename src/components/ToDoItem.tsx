@@ -1,21 +1,13 @@
 import React from "react";
 
-interface IProps{
-  key: number,
-  id:number,
-  text:string
-  onChecked(id:number): void;
-}
-
-
-export const ToDoItem:React.FC<IProps> = ({onChecked,id,text})=> {
+function ToDoItem(props) {
   return (
     <div
       onClick={() => {
-        onChecked(id);
+        props.onChecked(props.id);
       }}
     >
-      <li>{text}</li>
+      <li>{props.text}</li>
     </div>
   );
 }

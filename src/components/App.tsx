@@ -1,21 +1,17 @@
-import React, { MouseEvent,useState } from "react";
+import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
 import InputArea from "./InputArea";
-import { IToDoItem } from "../interfaces";
-import {I}
 
+function App() {
+  const [items, setItems] = useState([]);
 
-
-
-export const  App: React.FC = () => {
-  const [items, setItems] = useState<IToDoItem[]>([]);
-
-  const addItem = ():void => {
-    const newItem = {toDoItem:inputText}
-    setItems([...items,inputText])
+  function addItem(inputText) {
+    setItems(prevItems => {
+      return [...prevItems, inputText];
+    });
   }
 
-  function deleteItem(id:number) {
+  function deleteItem(id) {
     setItems(prevItems => {
       return prevItems.filter((item, index) => {
         return index !== id;

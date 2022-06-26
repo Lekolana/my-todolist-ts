@@ -1,20 +1,21 @@
-import React, {FC, ChangeEvent, useState } from "react";
-import { IInput } from "../interfaces";
+import React, { useState } from "react";
 
+function InputArea(props) {
+  const [inputText, setInputText] = useState("");
 
-const  InputArea: React.FC = () => {
-
-  const [inputText, setInputText] = useState <IInput> ();
-
-  const selectChange = (event:ChangeEvent<HTMLInputElement>):void => {
+  function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
   }
 
   return (
     <div className="form">
-      <input onChange={selectChange} type="text" value={inputText} />
-      <button onClick={() => {onAdd(inputText); setInputText("");}}
+      <input onChange={handleChange} type="text" value={inputText} />
+      <button
+        onClick={() => {
+          props.onAdd(inputText);
+          setInputText("");
+        }}
       >
         <span>Add</span>
       </button>

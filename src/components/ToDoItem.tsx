@@ -7,17 +7,21 @@ export interface IToDo{
     title:string,
     complete:boolean
 }
-export interface IToDoItemProps   {
-  handleChangeProps: 
-  deleteTodoProps: (id: string) => void,
-  todo: IToDo
+export interface IProps   {
+setUpdate:(value:string, id:string) =>void
+ deleteTodoProps: (id: string) => void,
+ todo: IToDo,
 }
-class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
+
+
+
+
+class ToDoItem extends React.Component<IProps, {editing: boolean}> {
   state = {
     editing: false,
   };
 
-  handleEditing = () => {
+  handleChange = () => {
     this.setState({
       editing: true,
     })
@@ -29,6 +33,7 @@ class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
     }
   }
 
+  
 
   render() {
     const completedStyle = {
@@ -51,7 +56,7 @@ class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
 
     return (
       <li className={styles.item}>
-      <div onDoubleClick={this.handleEditing} style={viewMode}>
+      <div onDoubleClick={this.handleChange} style={viewMode}>
         
         <button onClick={() => this.props.deleteTodoProps(id)}>Delete</button>
         <span style={complete ? completedStyle : undefined}>{title}</span>
@@ -61,8 +66,6 @@ class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
          style={editMode}
          className={styles.textInput}
          value={title}
-         onChange={e => {
-         this.props.setUpdate(e.target.value, id)}}
          onKeyDown={this.handleUpdatedDone}
          />
       </li>
@@ -71,3 +74,4 @@ class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
 }
 
 export default ToDoItem
+

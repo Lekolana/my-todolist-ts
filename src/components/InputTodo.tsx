@@ -1,23 +1,24 @@
-import React, { Component, ChangeEvent } from "react"
+import React, { Component} from "react"
 
 interface IState{
   title:string,
 }
-
-class InputTodo extends Component<IState> {
+ interface IProps{
+  addTodoItem:(title:string) => void,
+ 
+  }
+class InputTodo extends Component<IProps,IState> {
   state = {
     title: "",
   }
-  onChange = (e:ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    })
+  onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({[e.target.title]: e.target.value})
   }
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (this.state.title.trim()) {
-      this.props.addTodoProps(this.state.title)
+      this.props.addTodoItem(this.state.title)
       this.setState({
         title: "",
       })

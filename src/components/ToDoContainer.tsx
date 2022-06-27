@@ -15,8 +15,12 @@ export interface IState{
   toDos: Array<IToDo>
 }
 
+interface IProps{
+  addTodoItem:(title:string) =>Array<IToDo>
+}
 
-class TodoContainer extends React.Component <{}, IState>   {
+
+class TodoContainer extends React.Component <IProps, IState>   {
   state = {
     toDos: [
       {
@@ -58,7 +62,7 @@ class TodoContainer extends React.Component <{}, IState>   {
     const newTodo = {
       id: uuidv4(),
       title: title,
-      completed: false
+      complete: false
     };
     this.setState({
       toDos: [...this.state.toDos, newTodo]
@@ -76,15 +80,16 @@ class TodoContainer extends React.Component <{}, IState>   {
     })
   }
 
+
+ 
   render() {
     return (
       <div className="container">
         <div className="inner">
           <Header />
-          <InputTodo addTodoItem={this.addTodoItem} />
+          <InputTodo addTodoItem={this.addTodoItem}/>
           <ToDoList
             toDos={this.state.toDos}
-            handleChangeProps={this.handleChange}
             deleteTodoProps={this.delTodo}
             setUpdate={this.setUpdate}
           />
@@ -94,3 +99,4 @@ class TodoContainer extends React.Component <{}, IState>   {
   }
 }
 export default TodoContainer
+

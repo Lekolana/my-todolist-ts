@@ -1,33 +1,33 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import styles from "./TodoItem.module.css"
 
 
-interface IToDo{
-  todo:{
+export interface IToDo{
     id:string,
     title:string,
     complete:boolean
-  }
 }
-interface IStateToDoItem{
-  editing:boolean
+export interface IToDoItemProps   {
+  handleChangeProps: 
+  deleteTodoProps: (id: string) => void,
+  todo: IToDo
 }
-class ToDoItem extends React.Component<IStateToDoItem> {
+class ToDoItem extends React.Component<IToDoItemProps, {editing: boolean}> {
   state = {
     editing: false,
   };
 
   handleEditing = () => {
-  this.setState({
-    editing: true,
-  })
-};
+    this.setState({
+      editing: true,
+    })
+  };
 
-    handleUpdatedDone = (event:KeyboardEvent) => {
-      if (event.key === "Enter"){
-        this.setState({ editing: false })
-      }
+  handleUpdatedDone = (event:React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter"){
+      this.setState({ editing: false })
     }
+  }
 
 
   render() {
@@ -37,10 +37,10 @@ class ToDoItem extends React.Component<IStateToDoItem> {
       opacity: 0.4,
       textDecoration: "line-through",
     };
-    const { completed, id, title } = this.props.todo;
+    const { complete, id, title } = this.props.todo;
     
-    let viewMode = {}
-    let editMode = {}
+    const viewMode: CSSProperties = {}
+    const editMode: CSSProperties = {}
     
     if (this.state.editing) {
       viewMode.display = "none"
@@ -54,7 +54,7 @@ class ToDoItem extends React.Component<IStateToDoItem> {
       <div onDoubleClick={this.handleEditing} style={viewMode}>
         
         <button onClick={() => this.props.deleteTodoProps(id)}>Delete</button>
-        <span style={completed ? completedStyle : null}>{title}</span>
+        <span style={complete ? completedStyle : undefined}>{title}</span>
       </div>
       <input 
          type="text"
@@ -70,4 +70,4 @@ class ToDoItem extends React.Component<IStateToDoItem> {
   }
 }
 
-export default TodoItem
+export default ToDoItem

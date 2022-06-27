@@ -6,59 +6,47 @@ import { v4 as uuidv4 } from "uuid";
 
 
 export interface IToDo {
-  todo:{
   id:string,
   title:string,
   complete:boolean
-}}
+}
 
 export interface IState{
   toDos: Array<IToDo>
 }
 
-export interface IAddProp{
-  addTodoItem: () => void
-}
 
-class TodoContainer extends React.Component <IState> {
+class TodoContainer extends React.Component <{}, IState>   {
   state = {
     toDos: [
       {
         id: uuidv4(),
         title: "Setup development environment",
-        completed: true
+        complete: true
       },
       {
         id: uuidv4(),
         title: "Develop website and add content",
-        completed: false
+        complete: false
       },
       {
         id: uuidv4(),
         title: "Deploy to live server",
-        completed: false
+        complete: false
       }
     ]
    };
 
 
    handleChange = (id:string) => {
-    this.setState(prevState => ({
-      toDos: prevState.toDos.map(todo => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          }
-        }
-        return todo
-      }),
-    }));
+    const newState: IToDo[] = this.state.toDos.map(todo => ({...todo, complete: todo.id === id ? true : todo.complete }))
+    this.setState({toDos: newState})
+
   };
 
   delTodo = (id:string) => {
     this.setState({
-      todos: [
+      toDos: [
         ...this.state.toDos.filter(todo => {
           return todo.id !== id;
         })
@@ -77,7 +65,7 @@ class TodoContainer extends React.Component <IState> {
     });
   };
 
-  setUpdate = (updatedTitle, id:string) => {
+  setUpdate = (updatedTitle: string, id:string) => {
     this.setState({
       toDos: this.state.toDos.map(todo => {
         if (todo.id === id) {
@@ -94,7 +82,7 @@ class TodoContainer extends React.Component <IState> {
         <div className="inner">
           <Header />
           <InputTodo addTodoItem={this.addTodoItem} />
-          <TodosList
+          <ToDoList
             toDos={this.state.toDos}
             handleChangeProps={this.handleChange}
             deleteTodoProps={this.delTodo}
